@@ -1,15 +1,26 @@
-{
-  lib,
-  helpers,
-  config,
-  pkgs,
-  ...
+{ lib
+, helpers
+, config
+, pkgs
+, ...
 }:
 with lib;
 let
   lspHelpers = import ../helpers.nix { inherit lib config pkgs; };
 
   servers = [
+    {
+      name = "angular-language-server";
+      description = "";
+      cmd = cfg: [
+        "ngserver"
+        "--stdio"
+        "--tsProbeLocations"
+        ""
+        "--ngProbeLocations"
+        ""
+      ];
+    }
     {
       name = "ansiblels";
       description = "ansiblels for Ansible";
