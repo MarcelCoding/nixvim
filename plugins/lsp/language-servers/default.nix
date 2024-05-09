@@ -9,6 +9,25 @@ with lib;
 let
   servers = [
     {
+      name = "angularls";
+      package = pkgs.buildNpmPackage rec {
+        name = "@angular/language-server";
+        version = "18.0.0";
+
+        src = pkgs.fetchurl {
+          url = "https://registry.npmjs.org/@angular/language-server/-/language-server-${version}.tgz";
+          hash = "sha256-sIp9e4J83lrKM1dFPQOMBstTfM1fBOrGQspNMcINUkA=";
+        };
+
+        postPatch = ''
+          cp ${./package-lock.json} package-lock.json
+        '';
+
+        npmDepsHash = "sha256-oLe8X6ykFoMOMMYODP6sEK2s1ihhM35sJf3jpOpfasY=";
+        dontNpmBuild = true;
+      };
+    }
+    {
       name = "ansiblels";
       description = "ansiblels for Ansible";
       package = pkgs.ansible-language-server;
